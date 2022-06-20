@@ -1,20 +1,19 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { connect } from '$lib/client';
+	import Message from '$root/components/message.svelte';
+	import Alert from '$root/components/alert.svelte';
+	import Counter from '$root/components/ticker.svelte';
 	export let username: string;
 	export let password: string;
 	export let channel: string;
-
-	import { connect } from '$lib/client';
-	import { onMount } from 'svelte';
-	import Message from '$root/components/message.svelte';
-	import Alert from '$root/components/alert.svelte';
-
 	onMount(() => {
-		console.log();
 		connect(username, password, channel);
 	});
 </script>
 
-<h1>Welcome to My Playground</h1>
-<p>Chatbot name: {username}</p>
-<Message />
-<Alert />
+<div class="flex h-screen justify-end items-center">
+	<Message botName={username} />
+	<Alert />
+	<Counter />
+</div>

@@ -3,8 +3,8 @@
 	import { message } from '$lib/stores';
 </script>
 
-{#if $message}
-	<div transition:fade={{ delay: 250, duration: 500 }}>
-		<p>Alert: {$message}</p>
+{#if $message == 'sub'}
+	<div class="text-center" transition:fade={{ delay: 250, duration: 500 }}>
+		<p class="text-3xl font-medium pr-10">Counter: {$message}</p>
 	</div>
 {/if}

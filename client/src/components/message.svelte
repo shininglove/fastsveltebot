@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { message, displayName } from '$lib/stores';
+	export let botName: string;
 </script>
 
-<p>Message from user: {$message}</p>
-<p>Name of said user: {$displayName}</p>
+<div class="fixed inset-x-0 bottom-0 text-end text-black text-lg pr-5">
+	<span>Chatbot Name: {botName.toUpperCase()}</span>
+</div>

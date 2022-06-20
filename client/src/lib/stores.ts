@@ -13,10 +13,13 @@ export const displayName = derived(userMessages, (msg) => msg.tags['display-name
 
 let timeOutId: ReturnType<typeof setTimeout>;
 
-const resetTime: number = 5000;
+const resetTime: number = 15000;
 
-export const populateMessages = (message: userState) => {
-	userMessages.set(message);
+export const populateMessages = (data: userState) => {
+	userMessages.set(data);
+};
+
+export const clearMessages = () => {
 	if (timeOutId) {
 		clearTimeout(timeOutId);
 	}

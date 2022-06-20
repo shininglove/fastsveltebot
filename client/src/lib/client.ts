@@ -1,7 +1,7 @@
 import tmi from 'tmi.js';
-import { populateMessages } from '$lib/stores';
+import { messageHandler } from '$lib/message';
 
-console.log('creating client');
+console.log('Creating client...');
 
 export const connect = (username: string, token: string, channel: string) => {
 	const client = new tmi.Client({
@@ -10,16 +10,15 @@ export const connect = (username: string, token: string, channel: string) => {
 			username: username,
 			password: token
 		},
-		channels: [channel || '']
+		channels: [channel || '', username || '']
 	});
 
 	client.on('message', (_, tags, message, self) => {
 		if (self) return;
-		if (message.startsWith('!')) {
-			const messageInfo = { tags, message };
-			populateMessages(messageInfo);
-		}
+		messageHandler(tags, message);
 	});
+
+	client.on('subscription', (_, username, method, message, userstate) => {});
 
 	client.connect();
 };
