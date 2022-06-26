@@ -14,6 +14,11 @@ const config = {
                 alias: {
                     $root: path.resolve('./src')
                 }
+            },
+            server: {
+                proxy: {
+                    '/api': 'http://localhost:8000',
+                }
             } 
         }
 	}

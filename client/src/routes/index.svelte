@@ -4,6 +4,7 @@
 	import Message from '$root/components/message.svelte';
 	import Alert from '$root/components/alert.svelte';
 	import Counter from '$root/components/ticker.svelte';
+	import Events from '$root/components/events.svelte';
 	export let username: string;
 	export let password: string;
 	export let channel: string;
@@ -12,8 +13,9 @@
 	});
 </script>
 
-<div class="flex h-screen justify-end items-center">
+<div class="flex h-screen relative container">
 	<Message botName={username} />
 	<Alert />
 	<Counter />
+	<Events />
 </div>

@@ -4,19 +4,21 @@ import { counterName, incrementCount, updateCounterName, stopCount } from '$lib/
 import type { ChatUserstate } from 'tmi.js';
 
 export const messageHandler = (tags: ChatUserstate, message: string) => {
-	const parsedMessage: string = message.replace('!', '');
 	if (message.startsWith('!')) {
+		const parsedMessage: string = message.replace('!', '').toLowerCase();
+		const messageSections: string[] = parsedMessage.split(' ');
 		const messageInfo = { tags, message: parsedMessage };
 		populateMessages(messageInfo);
-	}
-	if (message.startsWith('!count')) {
-		const countMessage = message.split(' ').at(1) || '';
-		updateCounterName(countMessage);
-	}
-	if (parsedMessage == get(counterName)) {
-		incrementCount();
-	}
-	if (message.startsWith('!stopcount')) {
-		stopCount();
+		switch (messageSections.at(0)) {
+			case 'count':
+				const countMessage = messageSections.at(1) || '';
+				updateCounterName(countMessage);
+			case 'stopcount':
+				stopCount();
+			case get(counterName):
+				incrementCount();
+			default:
+				break;
+		}
 	}
 };

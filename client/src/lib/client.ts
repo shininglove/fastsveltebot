@@ -1,5 +1,6 @@
 import tmi from 'tmi.js';
 import { messageHandler } from '$lib/message';
+import { UserSupportEvents } from '$root/types/twitch';
 
 console.log('Creating client...');
 
@@ -15,10 +16,12 @@ export const connect = (username: string, token: string, channel: string) => {
 
 	client.on('message', (_, tags, message, self) => {
 		if (self) return;
-		messageHandler(tags, message);
+		messageHandler(tags, message.toLowerCase());
 	});
 
-	client.on('subscription', (_, username, method, message, userstate) => {});
+	client.on('subscription', (_, username, method, message, userstate) => {
+
+	});
 
 	client.connect();
 };

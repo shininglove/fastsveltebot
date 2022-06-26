@@ -1,15 +1,23 @@
 from typing import Optional
+from fastapi import APIRouter
+from fastapi.responses import FileResponse
 
-from fastapi import FastAPI
-
-app = FastAPI()
-
+app = APIRouter(prefix='/api')
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Developers"}
+    return {"name": "Party People"}
 
+@app.get("/data")
+def read_data():
+    return {"name": "Developers"}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/files")
+def read_files():
+    return {
+        "img" : "http://www.clker.com/cliparts/7/7/e/b/1513742325792949782commensalism-examples.hi.png"
+    }
+
+@app.get("/audio/{filename}")
+def read_data(filename:str):
+    return FileResponse(f"sounds/effects/{filename}.mp3")
