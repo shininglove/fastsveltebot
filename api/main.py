@@ -10,7 +10,7 @@ def read_root():
 
 @app.get("/data")
 def read_data():
-    return {"name": "Developers"}
+    return {"name": "Richard"}
 
 @app.get("/files")
 def read_files():

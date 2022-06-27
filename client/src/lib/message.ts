@@ -9,14 +9,18 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 		const messageSections: string[] = parsedMessage.split(' ');
 		const messageInfo = { tags, message: parsedMessage };
 		populateMessages(messageInfo);
+		console.log(messageSections.at(0));
 		switch (messageSections.at(0)) {
 			case 'count':
 				const countMessage = messageSections.at(1) || '';
 				updateCounterName(countMessage);
+				break;
 			case 'stopcount':
 				stopCount();
+				break;
 			case get(counterName):
 				incrementCount();
+				break;
 			default:
 				break;
 		}

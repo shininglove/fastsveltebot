@@ -5,7 +5,7 @@
 </script>
 
 {#if $counterName}
-	<div class="fixed inset-x-3/4 inset-y-1/2 w-max" transition:fade={{ delay: 250, duration: 500 }}>
-		<p class="text-6xl font-bold text-red-500">{pluarlize($counterName)} : {$countState}</p>
+	<div class="absolute inset-y-1/2 w-full" transition:fade={{ delay: 250, duration: 500 }}>
+		<p class="text-6xl font-bold text-red-500 relative inset-x-full">{pluarlize($counterName)} : {$countState}</p>
 	</div>
 {/if}

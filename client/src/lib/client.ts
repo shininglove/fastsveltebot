@@ -16,7 +16,7 @@ export const connect = (username: string, token: string, channel: string) => {
 
 	client.on('message', (_, tags, message, self) => {
 		if (self) return;
-		messageHandler(tags, message.toLowerCase());
+		messageHandler(tags, message);
 	});
 
 	client.on('subscription', (_, username, method, message, userstate) => {

@@ -24,7 +24,7 @@
 
 {#if $message == 'sub'}
 	<div
-		class="fixed inset-y-40 inset-x-1/3 w-1/4 text-red-400"
+		class="fixed inset-y-40 inset-x-1/3 w-1/4 text-red-500 text-center"
 		transition:fade={{ delay: 300, duration: 500 }}
 		use:playAudio
 	>
