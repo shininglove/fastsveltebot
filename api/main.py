@@ -1,8 +1,18 @@
-from typing import Optional
-from fastapi import APIRouter
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
-app = APIRouter(prefix='/api')
+app = FastAPI()
+
+origins = ["http://localhost:3000"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def read_root():
@@ -10,12 +20,12 @@ def read_root():
 
 @app.get("/data")
 def read_data():
-    return {"name": "Richard"}
+    return {"name": "YamateTheKudasai", "song": "MyLittlePonysPlayalong"}
 
 @app.get("/files")
 def read_files():
     return {
-        "img" : "http://www.clker.com/cliparts/7/7/e/b/1513742325792949782commensalism-examples.hi.png"
+        "img" : "https://i.redd.it/6x9qh7b1st1y.jpg"
     }
 
 @app.get("/audio/{filename}")

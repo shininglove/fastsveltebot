@@ -1,4 +1,4 @@
-import type { CommonUserstate } from 'tmi.js';
+import type { CommonUserstate, SubMethods, SubUserstate } from 'tmi.js';
 
 export interface userState {
 	tags: CommonUserstate;
@@ -6,13 +6,24 @@ export interface userState {
 }
 
 export interface eventState {
-	data: string;
-	event: string;
+	username: string;
+	message: string;
+}
+
+export interface subEventState {
+	username: string;
+	method: SubMethods;
+	message: string;
+	userstate: SubUserstate;
 }
 
 export const enum UserSupportEvents {
-	Sub,
-	Cheer,
-	Raid,
-	Host
+	Sub = 'sub',
+	Cheer = 'cheer',
+	Raid = 'raid',
+	Host = 'host'
 }
+
+export type userSupport = keyof typeof UserSupportEvents;
+
+export type supportMap = Map<userSupport, eventState>;

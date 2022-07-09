@@ -1,21 +1,25 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { connect } from '$lib/client';
+	import { onMount, setContext } from 'svelte';
+	import { chatSubscribe } from '$lib/subscribe';
 	import Message from '$root/components/message.svelte';
 	import Alert from '$root/components/alert.svelte';
 	import Counter from '$root/components/ticker.svelte';
 	import Events from '$root/components/events.svelte';
 	export let username: string;
-	export let password: string;
-	export let channel: string;
+	export let endpoint: string;
+	export let app_key: string;
+	export let app_host: string;
+	export let app_port: number;
+	export let app_ssl: string;
+	setContext('host', endpoint);
 	onMount(() => {
-		connect(username, password, channel);
+		chatSubscribe(app_key, app_host, app_port, app_ssl);
 	});
 </script>
 
 <div class="flex h-screen relative container">
-	<Message botName={username} />
 	<Alert />
 	<Counter />
 	<Events />
+	<Message botName={username} />
 </div>

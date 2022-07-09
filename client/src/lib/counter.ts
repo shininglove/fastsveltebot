@@ -15,7 +15,6 @@ let lastUpdateTime = Date.now();
 export const incrementCount = () => {
 	const currentTime = Date.now();
 	const timeDiff = (currentTime - lastUpdateTime) / msToSeconds;
-	console.log(timeDiff);
 	if (timeDiff > timeLimit) {
 		countState.update((num) => num + 1);
 		lastUpdateTime = Date.now();

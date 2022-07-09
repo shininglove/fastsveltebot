@@ -36,6 +36,8 @@
 		"@types/tmi.js": "^1.8.1",
 		"dotenv": "^16.0.1",
 		"env-cmd": "^10.1.0",
+		"pusher": "^5.1.1-beta",
+		"pusher-js": "^7.1.1-beta",
 		"tmi.js": "^1.8.5"
 	}
 }

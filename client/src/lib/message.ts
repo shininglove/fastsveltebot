@@ -1,7 +1,9 @@
-import { get } from 'svelte/store';
-import { populateMessages } from '$lib/stores';
-import { counterName, incrementCount, updateCounterName, stopCount } from '$lib/counter';
 import type { ChatUserstate } from 'tmi.js';
+import { UserSupportEvents } from '$root/types/twitch';
+import { get } from 'svelte/store';
+import { counterName, incrementCount, stopCount, updateCounterName } from '$lib/counter';
+import { populateMessages } from '$lib/stores';
+import { addSupportEvent, removeCurrentSupport } from './events';
 
 export const messageHandler = (tags: ChatUserstate, message: string) => {
 	if (message.startsWith('!')) {
@@ -15,11 +17,21 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 				const countMessage = messageSections.at(1) || '';
 				updateCounterName(countMessage);
 				break;
+			case get(counterName):
+				incrementCount();
+				break;
 			case 'stopcount':
 				stopCount();
 				break;
-			case get(counterName):
-				incrementCount();
+			case 'sub':
+				const subMap = new Map();
+				const userNames = ['Bob', 'Richard', 'Matt', 'Tom'];
+				const chosenName = userNames[Math.floor(Math.random() * userNames.length)];
+				subMap.set(UserSupportEvents.Sub, { username: chosenName, message: '' });
+				addSupportEvent(subMap);
+				break;
+			case 'unsub':
+				removeCurrentSupport();
 				break;
 			default:
 				break;

@@ -1,14 +1,5 @@
-anyio==3.5.0
-asgiref==3.4.1
 click==8.0.4
-contextlib2==21.6.0
-contextvars==2.4
 fastapi==0.77.1
-h11==0.13.0
-httptools==0.3.0
-idna==3.3
-immutables==0.17
-importlib-metadata==4.8.3
 pydantic==1.9.0
 python-dotenv==0.20.0
 PyYAML==6.0

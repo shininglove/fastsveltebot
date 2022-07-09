@@ -6,6 +6,8 @@
 
 {#if $counterName}
 	<div class="absolute inset-y-1/2 w-full" transition:fade={{ delay: 250, duration: 500 }}>
-		<p class="text-6xl font-bold text-red-500 relative inset-x-full">{pluarlize($counterName)} : {$countState}</p>
+		<p class="text-6xl font-bold text-red-500 relative inset-x-full">
+			{pluarlize($counterName)} : {$countState}
+		</p>
 	</div>
 {/if}

@@ -15,11 +15,6 @@ const config = {
                     $root: path.resolve('./src')
                 }
             },
-            server: {
-                proxy: {
-                    '/api': 'http://localhost:8000',
-                }
-            } 
         }
 	}
 };
