@@ -1,5 +1,6 @@
 import Pusher from 'pusher';
 import 'dotenv/config';
+import type { supportMap, userState } from '$root/types/twitch';
 
 let pusher = new Pusher({
 	appId: process.env.SOKETI_APP_ID || '',
@@ -12,6 +13,10 @@ let pusher = new Pusher({
 
 let chatroom = 'chat-room';
 
-export const publishMessage = (message: any) => {
+export const publishMessage = (message: userState) => {
 	pusher.trigger(chatroom, 'message', message);
+};
+
+export const publishSub = (submessage: supportMap) => {
+	pusher.trigger(chatroom, 'submessage', submessage);
 };

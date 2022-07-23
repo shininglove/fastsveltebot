@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import node from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 import path from 'path';
 
@@ -8,7 +8,7 @@ const config = {
         postcss: true,
     }),
 	kit: {
-		adapter: adapter(),
+		adapter: node(),
         vite: {
             resolve: {
                 alias: {

@@ -1,6 +1,7 @@
 import pusherJs from 'pusher-js';
 import { messageHandler } from '$lib/message';
-import type { userState } from '$root/types/twitch';
+import type { supportMap, userState } from '$root/types/twitch';
+import { addSupportEvent } from '$lib/events';
 
 export const chatSubscribe = (
 	app_key: string,
@@ -20,6 +21,9 @@ export const chatSubscribe = (
 		let chatChannel = subClient.subscribe('chat-room');
 		chatChannel.bind('message', (data: userState) => {
 			messageHandler(data.tags, data.message);
+		});
+		chatChannel.bind('submessage', (subdata: supportMap) => {
+			addSupportEvent(subdata);
 		});
 	} catch (error) {
 		subClient.unsubscribe('chat-room');

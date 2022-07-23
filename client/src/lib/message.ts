@@ -27,7 +27,7 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 				const subMap = new Map();
 				const userNames = ['Bob', 'Richard', 'Matt', 'Tom'];
 				const chosenName = userNames[Math.floor(Math.random() * userNames.length)];
-				subMap.set(UserSupportEvents.Sub, { username: chosenName, message: '' });
+				subMap.set(UserSupportEvents.sub, { username: chosenName, message: '' });
 				addSupportEvent(subMap);
 				break;
 			case 'unsub':
