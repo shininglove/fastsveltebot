@@ -12,7 +12,7 @@ const config = {
         vite: {
             resolve: {
                 alias: {
-                    $root: path.resolve('./src')
+                    '$src': path.resolve('./src')
                 }
             },
         }

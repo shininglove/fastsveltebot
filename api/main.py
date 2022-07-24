@@ -41,8 +41,11 @@ def read_files():
     return {"img": "https://i.redd.it/6x9qh7b1st1y.jpg"}
 
 
-@app.get("/audio/{filename}")
-def read_data(filename: str):
+@app.get("/audio/{support_name}/{filename}")
+def read_data(support_name: str,filename: str):
     if filename in ["Bob", "Richard", "Matt", "Tom"]:
-        filename = "dog"
+        if support_name == "sub":
+            filename = "dog"
+        else:
+            filename = "butter"
     return FileResponse(f"sounds/effects/{filename}.mp3")

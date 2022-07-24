@@ -10,7 +10,7 @@
 		"sourceMap": true,
 		"strict": true,
         "paths": {
-            "$root/*": ["./src/*"],
+            "$src/*": ["./src/*"],
             "$lib/*": ["./src/lib/*"]
         }
 	}

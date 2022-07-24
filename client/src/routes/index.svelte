@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount, setContext } from 'svelte';
 	import { chatSubscribe } from '$lib/subscribe';
-	import Message from '$root/components/message.svelte';
-	import Alert from '$root/components/alert.svelte';
-	import Counter from '$root/components/ticker.svelte';
-	import Events from '$root/components/events.svelte';
+	import Message from '$src/components/message.svelte';
+	import Alert from '$src/components/alert.svelte';
+	import Counter from '$src/components/ticker.svelte';
+	import Events from '$src/components/events.svelte';
 	export let username: string;
 	export let endpoint: string;
 	export let app_key: string;

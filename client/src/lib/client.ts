@@ -1,14 +1,10 @@
 import tmi from 'tmi.js';
-import { publishMessage, publishSub } from '$lib/publish';
-import {
-	UserSupportEvents,
-	type cheerEventState,
-	type subEventState,
-	type supportMap,
-	type viewerSupportState
-} from '$root/types/twitch';
+import { publishMessage } from '$lib/publish';
+import { supportEventHandler } from './services';
 
 console.log('Creating client...');
+
+
 
 export const connect = (username: string, token: string, channel: string) => {
 	const client = new tmi.Client({
@@ -28,57 +24,33 @@ export const connect = (username: string, token: string, channel: string) => {
 	});
 
 	client.on('subscription', (_, username, methods, message, userstate) => {
-		if (userstate['message-type'] !== UserSupportEvents.resub) {
-			const subMap: supportMap = new Map();
-			const subData: subEventState = { username, methods, message, userstate };
-			subMap.set(UserSupportEvents.sub, subData);
-			publishSub(subMap);
+		if (userstate['message-type'] !== 'resub') {
+			supportEventHandler('sub', {username, methods, message, userstate})
 		}
 	});
 
 	client.on('cheer', (_, userstate, message) => {
-		const cheerMap: supportMap = new Map();
-		const cheerData: cheerEventState = {
-			username: userstate.username || 'anon',
-			message,
-			userstate
-		};
-		cheerMap.set(UserSupportEvents.cheer, cheerData);
-		publishSub(cheerMap);
+		let username: string = userstate.username || 'anon';
+		supportEventHandler('cheer',{username,userstate, message})
 	});
 
 	client.on('raided', (_, username, viewers) => {
-		const raidMap: supportMap = new Map();
-		const raidData: viewerSupportState = { username, viewers };
-		raidMap.set(UserSupportEvents.raid, raidData);
-		publishSub(raidMap);
+		supportEventHandler('raid',{username, viewers})
 	});
 
 	client.on('hosted', (_, username, viewers, autohost) => {
-		const hostMap: supportMap = new Map();
-		const hostData: viewerSupportState = { username, viewers, autohost };
-		hostMap.set(UserSupportEvents.host, hostData);
-		publishSub(hostMap);
+		supportEventHandler('host',{username, viewers, autohost})
 	});
 
 	client.on('subgift', (_, username, streakMonths, recipient, methods, userstate) => {
-		const giftMap: supportMap = new Map();
-		const giftData: subEventState = { username, streakMonths, recipient, methods, userstate };
-		giftMap.set(UserSupportEvents.giftsub, giftData);
-		publishSub(giftMap);
+		supportEventHandler('giftsub',{username, streakMonths, recipient, methods, userstate})
 	});
 
 	client.on('submysterygift', (_, username, numbOfSubs, methods, userstate) => {
-		const mysteryGiftMap: supportMap = new Map();
-		const mysteryGiftData: subEventState = { username, numbOfSubs, methods, userstate };
-		mysteryGiftMap.set(UserSupportEvents.mysterysub, mysteryGiftData);
-		publishSub(mysteryGiftMap);
+		supportEventHandler('mysterysub',{username, numbOfSubs, methods, userstate})
 	});
 
 	client.on('resub', (_, username, months, message, userstate, methods) => {
-		const reSubMap: supportMap = new Map();
-		const reSubData: subEventState = { username, months, message, methods, userstate };
-		reSubMap.set(UserSupportEvents.resub, reSubData);
-		publishSub(reSubMap);
+		supportEventHandler('resub', {username, months, message, userstate, methods})
 	});
 };

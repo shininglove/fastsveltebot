@@ -9,3 +9,10 @@ export const pluarlize = (word: string) => {
 export const titleCasePlural = (word: string) => {
 	return `${titleCase(word)}s`;
 };
+
+export const playAudio = (audioUrl: string,endFunc: any, volume: number = 0.5) => {
+	const sampleAudio = new Audio(audioUrl);
+	sampleAudio.volume = volume;
+	sampleAudio.addEventListener('ended',endFunc);
+	sampleAudio.play();
+}

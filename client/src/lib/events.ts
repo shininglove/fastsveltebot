@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import type { supportMap } from '$root/types/twitch';
+import type { supportMap } from '$src/types/twitch';
 
 const defaultMap = new Map([['', {}]]);
 

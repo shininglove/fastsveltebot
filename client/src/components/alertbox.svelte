@@ -1,16 +1,21 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { getContext } from 'svelte';
-	import type { subSupportState } from '$root/types/twitch';
+	import type { subSupportState, userSupport } from '$src/types/twitch';
+	import { removeCurrentSupport } from '$lib/events';
+import { playAudio } from '$src/lib/helpers';
+	
 	export let eventData: subSupportState;
+	export let eventName: userSupport;
 	export let color: string = 'red';
 	export let delay: number = 300;
 	export let duration: number = 500;
-	let host = getContext('host');
 
 	let eventSubText: string;
 	let eventMessage: string;
 	let imgSrc: string;
+	let currentUser: string;
+	let host = getContext('host');
 
 	$: fetch(`${host}/support`, {
 		method: 'POST',
@@ -22,6 +27,19 @@
 			eventSubText = result.subtext;
 			eventMessage = result.message;
 		});
+
+	const alertAudio = (username: string) => {
+		if (username !== currentUser && username) {
+			playAudio(`${host}/audio/${eventName}/${username}`, () => {
+				console.log('Finished playing');
+				removeCurrentSupport();
+				currentUser = '';
+			})
+			currentUser = username;
+		}
+	};
+
+	$: alertAudio(eventData.username);
 </script>
 
 <div
