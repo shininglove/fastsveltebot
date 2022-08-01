@@ -1,4 +1,9 @@
-import {UserSupportEvents, type subSupportState, type supportMap, type userSupport} from '$src/types/twitch';
+import {
+	UserSupportEvents,
+	type subSupportState,
+	type supportMap,
+	type userSupport
+} from '$src/types/twitch';
 import { publishSub } from './publish';
 
 export const supportEventHandler = (eventType: userSupport, args: subSupportState) => {
@@ -11,4 +16,4 @@ export const supportEventHandler = (eventType: userSupport, args: subSupportStat
 			break;
 	}
 	publishSub(eventMap);
-}
+};

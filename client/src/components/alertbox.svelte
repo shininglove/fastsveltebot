@@ -3,8 +3,8 @@
 	import { getContext } from 'svelte';
 	import type { subSupportState, userSupport } from '$src/types/twitch';
 	import { removeCurrentSupport } from '$lib/events';
-import { playAudio } from '$src/lib/helpers';
-	
+	import { playAudio } from '$src/lib/helpers';
+
 	export let eventData: subSupportState;
 	export let eventName: userSupport;
 	export let color: string = 'red';
@@ -17,7 +17,7 @@ import { playAudio } from '$src/lib/helpers';
 	let currentUser: string;
 	let host = getContext('host');
 
-	$: fetch(`${host}/support`, {
+	$: fetch(`${host}/user_support/${eventName}`, {
 		method: 'POST',
 		body: JSON.stringify(eventData)
 	})
@@ -26,20 +26,21 @@ import { playAudio } from '$src/lib/helpers';
 			imgSrc = result.img;
 			eventSubText = result.subtext;
 			eventMessage = result.message;
+			let eventAudioName = result.audio_path
+			alertAudio(eventAudioName);
 		});
 
-	const alertAudio = (username: string) => {
+	const alertAudio = (audioName: string) => {
+		const username = eventData.username;
 		if (username !== currentUser && username) {
-			playAudio(`${host}/audio/${eventName}/${username}`, () => {
+			playAudio(`${host}/audio/${audioName}`, () => {
 				console.log('Finished playing');
 				removeCurrentSupport();
 				currentUser = '';
-			})
+			});
 			currentUser = username;
 		}
 	};
-
-	$: alertAudio(eventData.username);
 </script>
 
 <div

@@ -1,10 +1,13 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+import config
+from subscription import api_to_socket_message
+from search import find_tier_image, find_raid_image
 
 app = FastAPI()
 
-origins = ["http://localhost:3000"]
+origins = [config.CORS_HOST]
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,20 +17,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/")
 def read_root():
     return {"name": "Party People"}
 
 
-@app.post("/support")
-async def read_support(support: Request):
+@app.post("/user_support/{event_name}")
+async def read_support(event_name: str, support: Request):
     req = await support.json()
     print(req)
+    if event_name == 'sub':
+        user_plan = req.get('methods',{'plan':'0'}).get('plan', '1000')
+        tiers = {
+            "1000": "tier 1",
+            "2000" : "tier 2",
+            "3000" : "tier 3",
+            "Prime" : "prime"
+        }
+        user_tier = tiers.get(user_plan,'tier 0')
+        if user_tier == "tier 3":
+            api_to_socket_message("A based individual subbed with a T3!")
+        return {
+            "img": find_tier_image(user_plan),
+            "subtext": f"{req['message']}",
+            "message": f"{req['username']} has subbed w/ {user_tier}",
+            "audio_path" : "dog"
+        }
+    viewers = int(req['viewers'])
     return {
-        "img": "https://i.redd.it/6x9qh7b1st1y.jpg",
-        "subtext": "CottonCandy",
-        "message": "Domain Expansion",
+        "img": find_raid_image(viewers),
+        "subtext": f"Check them out please!",
+        "message": f"{req['username']} has raided w/ {viewers} viewers",
+        "audio_path" : "chc"
     }
 
 
@@ -41,11 +62,6 @@ def read_files():
     return {"img": "https://i.redd.it/6x9qh7b1st1y.jpg"}
 
 
-@app.get("/audio/{support_name}/{filename}")
-def read_data(support_name: str,filename: str):
-    if filename in ["Bob", "Richard", "Matt", "Tom"]:
-        if support_name == "sub":
-            filename = "dog"
-        else:
-            filename = "butter"
+@app.get("/audio/{filename}")
+def read_data(filename: str):
     return FileResponse(f"sounds/effects/{filename}.mp3")

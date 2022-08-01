@@ -1,6 +1,6 @@
 import Pusher from 'pusher';
 import 'dotenv/config';
-import type { supportMap, userState } from '$root/types/twitch';
+import type { supportMap, userState } from '$src/types/twitch';
 
 let pusher = new Pusher({
 	appId: process.env.SOKETI_APP_ID || '',
@@ -19,4 +19,9 @@ export const publishMessage = (message: userState) => {
 
 export const publishSub = (submessage: supportMap) => {
 	pusher.trigger(chatroom, 'submessage', submessage);
+};
+
+export const publishServer = (response: string) => {
+	// here as an option for server-side connection to IRC
+	pusher.trigger(chatroom, 'response', response);
 };

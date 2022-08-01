@@ -1,12 +1,21 @@
 import 'dotenv/config';
 import type { RequestHandler } from '@sveltejs/kit';
-import { connect } from '$lib/client';
+import { connect, serverMessagesToChat } from '$lib/client';
 
 let username: string = process.env.USER_NAME || '';
 let password: string = process.env.TOKEN || '';
 let channel: string = process.env.CHANNEL || '';
 
-connect(username, password, channel);
+let client = connect(username, password, channel);
+
+serverMessagesToChat({
+	client,
+	channel,
+	app_key: process.env.SOKETI_KEY || '',
+	app_host: process.env.SOKETI_HOST || '',
+	app_port: Number(process.env.SOKETI_PORT),
+	app_ssl: process.env.SOKETI_SSL || ''
+});
 
 export const get: RequestHandler = async () => {
 	return {

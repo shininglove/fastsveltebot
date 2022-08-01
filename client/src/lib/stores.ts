@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import type { userState } from '$root/types/twitch';
+import type { userState } from '$src/types/twitch';
 
 console.log('Store Initization');
 

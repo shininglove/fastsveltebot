@@ -4,8 +4,5 @@
 </script>
 
 {#if $currentSupportName}
-	<AlertBox 
-	eventData={$currentSupportValue} 
-	eventName={$currentSupportName}
-	/>
+	<AlertBox eventData={$currentSupportValue} eventName={$currentSupportName} />
 {/if}
