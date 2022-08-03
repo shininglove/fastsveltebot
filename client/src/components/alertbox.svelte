@@ -14,7 +14,6 @@
 	let eventSubText: string;
 	let eventMessage: string;
 	let imgSrc: string;
-	let currentUser: string;
 	let host = getContext('host');
 
 	let currentAlert: subSupportState[] = [];
@@ -23,7 +22,6 @@
 		playAudio(`${host}/audio/${audioType}/${audioName}`, () => {
 			console.log('Finished playing');
 			removeCurrentSupport();
-			currentUser = '';
 			currentAlert = [];
 		});
 	};
