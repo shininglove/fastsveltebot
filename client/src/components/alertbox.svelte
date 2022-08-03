@@ -17,30 +17,36 @@
 	let currentUser: string;
 	let host = getContext('host');
 
-	$: fetch(`${host}/user_support/${eventName}`, {
-		method: 'POST',
-		body: JSON.stringify(eventData)
-	})
-		.then((response) => response.json())
-		.then((result) => {
+	let currentAlert: subSupportState[] = [];
+
+	const alertAudio = (audioType: string, audioName: string) => {
+		playAudio(`${host}/audio/${audioType}/${audioName}`, () => {
+			console.log('Finished playing');
+			removeCurrentSupport();
+			currentUser = '';
+			currentAlert = [];
+		});
+	};
+
+	const fetchAlertData = async (params: subSupportState) => {
+		if (!currentAlert.includes(params)){
+			const userSupportData = await fetch(`${host}/user_support/${eventName}`, {
+				method: 'POST',
+				body: JSON.stringify(params)
+			})
+			const result = await userSupportData.json();
 			imgSrc = result.img;
 			eventSubText = result.subtext;
 			eventMessage = result.message;
-			let eventAudioName = result.audio_path
-			alertAudio(eventAudioName);
-		});
-
-	const alertAudio = (audioName: string) => {
-		const username = eventData.username;
-		if (username !== currentUser && username) {
-			playAudio(`${host}/audio/${audioName}`, () => {
-				console.log('Finished playing');
-				removeCurrentSupport();
-				currentUser = '';
-			});
-			currentUser = username;
+			let eventAudioName = result.audio_path;
+			alertAudio("effects",eventAudioName);
+			currentAlert.push(params);
 		}
-	};
+	}
+
+	$: fetchAlertData(eventData)
+
+	
 </script>
 
 <div

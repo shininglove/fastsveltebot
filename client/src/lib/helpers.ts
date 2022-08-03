@@ -12,7 +12,7 @@ export const titleCasePlural = (word: string) => {
 
 export const playAudio = (audioUrl: string, endFunc: any, volume: number = 0.5) => {
 	const sampleAudio = new Audio(audioUrl);
-	console.log(sampleAudio)
+	console.log(sampleAudio);
 	sampleAudio.volume = volume;
 	sampleAudio.addEventListener('ended', endFunc);
 	sampleAudio.play();
