@@ -6,9 +6,9 @@ import {
 	type userSupport
 } from '$src/types/twitch';
 import { get } from 'svelte/store';
-import { counterName, incrementCount, stopCount, updateCounterName } from '$lib/counter';
+import { counterName, incrementCount, stopCount, updateCounterName, resetCount } from '$lib/counter';
 import { populateMessages } from '$lib/stores';
-import { addSupportEvent, removeCurrentSupport } from './events';
+import { addSupportEvent } from './events';
 
 const testSupportHandler = (eventType: userSupport, args: subSupportState) => {
 	const eventMap: supportMap = new Map();
@@ -40,6 +40,9 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 			case 'stopcount':
 				stopCount();
 				break;
+			case 'reset':
+				resetCount();
+				break;
 			case 'sub':
 				testSupportHandler(UserSupportEvents.sub, {
 					username: chosenName,
@@ -53,9 +56,6 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 					username: chosenName,
 					viewers: Math.floor(Math.random() * 20)
 				});
-				break;
-			case 'unsub':
-				removeCurrentSupport();
 				break;
 			default:
 				break;
