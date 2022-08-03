@@ -21,8 +21,8 @@
 	const alertAudio = (audioType: string, audioName: string) => {
 		playAudio(`${host}/audio/${audioType}/${audioName}`, () => {
 			console.log('Finished playing');
-			removeCurrentSupport();
 			currentAlert = [];
+			removeCurrentSupport();
 		});
 	};
 

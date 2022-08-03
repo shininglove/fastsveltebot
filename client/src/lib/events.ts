@@ -3,8 +3,6 @@ import type { supportMap } from '$src/types/twitch';
 
 const defaultMap = new Map([['', {}]]);
 
-const listOfSupport: supportMap[] = [];
-
 export const supportInfo = writable([defaultMap]);
 
 export const currentSupportState = derived(
@@ -22,10 +20,8 @@ export const currentSupportValue = derived(currentSupportState, (msg) =>
 
 export const addSupportEvent = (data: supportMap) => {
 	supportInfo.update((item) => [...item, data]);
-	listOfSupport.push(data);
 };
 
 export const removeCurrentSupport = () => {
-	supportInfo.update((item) => item.filter((x) => x !== listOfSupport[0]));
-	listOfSupport.shift();
+	supportInfo.update((item) => item.slice(1));
 };
