@@ -16,6 +16,7 @@ import {
 import { populateMessages } from '$lib/stores';
 import { addSupportEvent } from './alert';
 import { addThemeEffect } from './theme';
+import { safeFetchData } from './helpers';
 
 const testSupportHandler = (eventType: userSupport, args: subSupportState) => {
 	const eventMap: supportMap = new Map();
@@ -37,7 +38,8 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 		const userNames = ['Bob', 'Richard', 'Matt', 'Tom'];
 		const subTiers: SubMethod[] = ['1000', '2000', '3000', 'Prime'];
 		const chosenName = userNames[Math.floor(Math.random() * userNames.length)];
-		switch (messageSections.at(0)) {
+		const command = messageSections.at(0)
+		switch (command) {
 			case 'count':
 				const countMessage = messageSections.at(1) || '';
 				updateCounterName(countMessage);
@@ -66,10 +68,13 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 				});
 				break;
 			default:
-				const userMap = new Map();
-				userMap.set(sender,messageSections.at(0))
-				console.log(userMap);
-				addThemeEffect(userMap);
+				const host = import.meta.env.VITE_API_HOST;
+				const updateTheme = (data:any) => {
+					const userMap = new Map();
+					userMap.set(sender,data.sound);
+					addThemeEffect(userMap);
+				}
+				safeFetchData(`${host}/sound_effects`,{"sound_name": command},updateTheme)
 				break;
 		}
 	}

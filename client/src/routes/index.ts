@@ -23,7 +23,7 @@ export const get: RequestHandler = async () => {
 		status: 200,
 		body: {
 			username: process.env.USER_NAME,
-			endpoint: process.env.API_HOST,
+			endpoint: process.env.VITE_API_HOST,
 			app_key: process.env.SOKETI_KEY,
 			app_host: process.env.SOKETI_HOST,
 			app_port: process.env.SOKETI_PORT,
