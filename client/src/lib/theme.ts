@@ -6,7 +6,8 @@ const listOfEffects: Map<string, string>[] = [];
 
 export const effectsList = writable([defaultMap]);
 
-export const playingEffect = derived(effectsList, (msg) => msg.filter((x) => x !== defaultMap)[0]);
+export const playingEffect = derived(effectsList, 
+	(msg) => msg.filter((x) => x !== defaultMap)[0]);
 
 export const playingEffectName = derived(playingEffect, (msg) =>
 	msg ? msg.keys().next().value : ''

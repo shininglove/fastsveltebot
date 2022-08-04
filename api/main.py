@@ -1,3 +1,4 @@
+from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -50,6 +51,20 @@ async def read_support(event_name: str, support: Request):
 def read_data():
     return {"name": "YamateTheKudasai", "song": "MyLittlePonysPlayalong"}
 
+
+@app.post("/sound_effects")
+async def read_data(support: Request):
+    req = await support.json()
+    print(req)
+    sound_name = req.get("sound_name", "coom")
+    username = req.get("username", "Karen")
+    sound_type = req.get("sound_type", "effects")
+    files = Path(f'sounds/{sound_type}').glob('*.mp3')
+    mp3_file = [file.name for file in files if file.name == f"{sound_name}.mp3"]
+    if mp3_file:
+        name = mp3_file[0].replace(".mp3", "")
+        return {"user": username,"sound": name}
+    
 
 @app.get("/audio/{audio_type}/{filename}")
 def read_data(audio_type: str,filename: str):

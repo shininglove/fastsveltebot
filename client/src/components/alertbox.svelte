@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { getContext } from 'svelte';
 	import type { subSupportState, userSupport } from '$src/types/twitch';
-	import { removeCurrentSupport } from '$lib/events';
+	import { removeCurrentSupport } from '$lib/alert';
 	import { playAudio } from '$src/lib/helpers';
 
 	export let eventData: subSupportState;
@@ -18,7 +18,7 @@
 
 	let currentAlert: subSupportState[] = [];
 
-	const alertAudio = (audioType: string, audioName: string) => {
+	const alertAudio = (audioName: string,audioType: string = "effects") => {
 		playAudio(`${host}/audio/${audioType}/${audioName}`, () => {
 			console.log('Finished playing');
 			currentAlert = [];
@@ -27,31 +27,29 @@
 	};
 
 	const fetchAlertData = async (params: subSupportState) => {
-		if (!currentAlert.includes(params)){
+		if (!currentAlert.includes(params)) {
 			const userSupportData = await fetch(`${host}/user_support/${eventName}`, {
 				method: 'POST',
 				body: JSON.stringify(params)
-			})
+			});
 			const result = await userSupportData.json();
 			imgSrc = result.img;
 			eventSubText = result.subtext;
 			eventMessage = result.message;
 			let eventAudioName = result.audio_path;
-			alertAudio("effects",eventAudioName);
+			alertAudio(eventAudioName);
 			currentAlert.push(params);
 		}
-	}
+	};
 
-	$: fetchAlertData(eventData)
-
-	
+	$: fetchAlertData(eventData);
 </script>
 
 <div
 	class="fixed inset-y-40 inset-x-1/3 w-1/4 text-{color}-500 text-center"
 	transition:fade={{ delay, duration }}
 >
-	<img class="w-fit h-fit" src={imgSrc} alt="moose-with-bird" />
+	<img class="w-fit h-fit" src={imgSrc} alt="broken-img-link" />
 	<p class="text-4xl font-medium w-fix">
 		{eventMessage}
 	</p>

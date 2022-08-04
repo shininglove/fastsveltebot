@@ -8,10 +8,9 @@ let lastUpdateTime = Date.now();
 
 export const incrementCount = () => {
 	const msToSeconds = 1000;
-	const seconds = 1;
-	const timeLimit = 5 * seconds;
+	const timeLimit = 5 * msToSeconds;
 	const currentTime = Date.now();
-	const timeDiff = (currentTime - lastUpdateTime) / msToSeconds;
+	const timeDiff = currentTime - lastUpdateTime;
 	if (timeDiff > timeLimit) {
 		countState.update((num) => num + 1);
 		lastUpdateTime = Date.now();

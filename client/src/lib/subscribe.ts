@@ -1,7 +1,7 @@
 import pusherJs from 'pusher-js';
 import { messageHandler } from '$lib/message';
 import type { supportMap, userState } from '$src/types/twitch';
-import { addSupportEvent } from '$lib/events';
+import { addSupportEvent } from '$lib/alert';
 
 export const chatSubscribe = (
 	app_key: string,

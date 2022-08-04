@@ -4,7 +4,7 @@
 	import Message from '$src/components/message.svelte';
 	import Alert from '$src/components/alert.svelte';
 	import Counter from '$src/components/ticker.svelte';
-	import Events from '$src/components/events.svelte';
+	import Theme from '$src/components/theme.svelte';
 	export let username: string;
 	export let endpoint: string;
 	export let app_key: string;
@@ -20,6 +20,6 @@
 <div class="flex h-screen relative container">
 	<Alert />
 	<Counter />
-	<Events />
+	<Theme />
 	<Message botName={username} />
 </div>

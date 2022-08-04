@@ -6,9 +6,16 @@ import {
 	type userSupport
 } from '$src/types/twitch';
 import { get } from 'svelte/store';
-import { counterName, incrementCount, stopCount, updateCounterName, resetCount } from '$lib/counter';
+import {
+	counterName,
+	incrementCount,
+	stopCount,
+	updateCounterName,
+	resetCount
+} from '$lib/counter';
 import { populateMessages } from '$lib/stores';
-import { addSupportEvent } from './events';
+import { addSupportEvent } from './alert';
+import { addThemeEffect } from './theme';
 
 const testSupportHandler = (eventType: userSupport, args: subSupportState) => {
 	const eventMap: supportMap = new Map();
@@ -26,6 +33,7 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 		const messageSections: string[] = parsedMessage.split(' ');
 		const messageInfo = { tags, message: parsedMessage };
 		populateMessages(messageInfo);
+		const sender = tags.username;
 		const userNames = ['Bob', 'Richard', 'Matt', 'Tom'];
 		const subTiers: SubMethod[] = ['1000', '2000', '3000', 'Prime'];
 		const chosenName = userNames[Math.floor(Math.random() * userNames.length)];
@@ -58,6 +66,10 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 				});
 				break;
 			default:
+				const userMap = new Map();
+				userMap.set(sender,messageSections.at(0))
+				console.log(userMap);
+				addThemeEffect(userMap);
 				break;
 		}
 	}
