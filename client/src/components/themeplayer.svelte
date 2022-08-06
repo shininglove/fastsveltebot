@@ -2,15 +2,16 @@
 	import { getContext } from 'svelte';
 	import { playAudio } from '$src/lib/helpers';
 	import { removeCurrentEffect  } from '$src/lib/theme';
+import type { SoundRequest } from '$src/types/twitch';
 
     export let currentEffectName: string;
-	export let currentEffectValue: string;
+	export let currentEffectValue: SoundRequest;
 
 	let host = getContext('host');
 
 	let user: string;
 	let effect: string;
-    let currentAudio: string[] = [];
+    let currentAudio: SoundRequest[] = [];
 
 	const effectAudio = (audioName: string ,audioType: string = "effects") => {
 		playAudio(`${host}/audio/${audioType}/${audioName}`, () => {
@@ -20,26 +21,26 @@
 		});
 	};
 
-	const fetchEffectData = async (params: Array<string>) => {
+	const fetchEffectData = async (params: SoundRequest) => {
 		console.log("Fetching data...")
-		const [username,songName] = params;
-        if (!currentAudio.includes(songName)) {
+		// Remove extra fetch from here and dupes break it
+        if (!currentAudio.includes(params)) {
             const soundEffectData = await fetch(`${host}/sound_effects`, {
                 method: 'POST',
-                body: JSON.stringify({"username": username, "sound_name": songName })
+                body: JSON.stringify({"username":currentEffectName,...params})
             });
 			const result = await soundEffectData.json();
             if (result) {
-				user = result.user;
-				effect = result.sound;
+				user = result.username;
+				effect = result.sound_name;
 				console.log(`Trying to play ${effect}`)
 				effectAudio(effect);
-				currentAudio.push(songName);
+				currentAudio.push(params);
 			}
 		}
     }
 	
-	$: fetchEffectData([currentEffectName,currentEffectValue]);
+	$: fetchEffectData(currentEffectValue);
 </script>
 
 {#if user && effect}

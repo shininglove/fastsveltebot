@@ -63,7 +63,7 @@ async def read_data(support: Request):
     mp3_file = [file.name for file in files if file.name == f"{sound_name}.mp3"]
     if mp3_file:
         name = mp3_file[0].replace(".mp3", "")
-        return {"user": username,"sound": name}
+        return req
     
 
 @app.get("/audio/{audio_type}/{filename}")

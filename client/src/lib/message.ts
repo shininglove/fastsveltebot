@@ -1,6 +1,7 @@
 import type { ChatUserstate, SubMethod } from 'tmi.js';
 import {
 	UserSupportEvents,
+	type SoundRequest,
 	type subSupportState,
 	type supportMap,
 	type userSupport
@@ -69,12 +70,12 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 				break;
 			default:
 				const host = import.meta.env.VITE_API_HOST;
-				const updateTheme = (data:any) => {
+				const updateTheme = (data:SoundRequest) => {
 					const userMap = new Map();
-					userMap.set(sender,data.sound);
+					userMap.set(sender,{"sound_name":data.sound_name, "sound_type": data.sound_type});
 					addThemeEffect(userMap);
 				}
-				safeFetchData(`${host}/sound_effects`,{"sound_name": command},updateTheme)
+				safeFetchData(`${host}/sound_effects`,{"sound_type": "effects","sound_name": command!},updateTheme)
 				break;
 		}
 	}

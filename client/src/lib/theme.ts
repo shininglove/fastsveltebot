@@ -1,8 +1,9 @@
+import type { SoundRequest } from '$src/types/twitch';
 import { writable, derived } from 'svelte/store';
 
-const defaultMap = new Map([['', '']]);
+const defaultMap = new Map([['', {}]]);
 
-const listOfEffects: Map<string, string>[] = [];
+const listOfEffects: Map<string, SoundRequest>[] = [];
 
 export const effectsList = writable([defaultMap]);
 
@@ -17,7 +18,7 @@ export const playingEffectValue = derived(playingEffect, (msg) =>
 	msg ? msg.values().next().value : ''
 );
 
-export const addThemeEffect = (data: Map<string, string>) => {
+export const addThemeEffect = (data: Map<string, SoundRequest>) => {
 	effectsList.update((item) => [...item, data]);
 	listOfEffects.push(data);
 };

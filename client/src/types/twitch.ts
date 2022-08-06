@@ -51,3 +51,9 @@ export type userSupport = keyof typeof UserSupportEvents;
 export type subSupportState = subEventState | viewerSupportState | cheerEventState;
 
 export type supportMap = Map<userSupport, subSupportState>;
+
+export interface SoundRequest {
+	"username"?: string,
+	"sound_name": string,
+	"sound_type": string
+}
