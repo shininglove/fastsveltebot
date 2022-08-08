@@ -54,6 +54,9 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 			case 'reset':
 				resetCount();
 				break;
+			case 'cmd':
+			case 'command':
+				break;
 			case 'sub':
 				testSupportHandler(UserSupportEvents.sub, {
 					username: chosenName,
@@ -76,6 +79,7 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 					addThemeEffect(userMap);
 				}
 				safeFetchData(`${host}/sound_effects`,{"sound_type": "effects","sound_name": command!},updateTheme)
+				safeFetchData(`${host}/user_commands`,{"command": command},()=>{})
 				break;
 		}
 	}

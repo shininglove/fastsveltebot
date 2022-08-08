@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 import config
-# from subscription import api_to_socket_message
+from subscription import api_to_socket_message
 from search import find_tier_image, find_raid_image
 
 app = FastAPI()
@@ -47,18 +47,38 @@ async def read_support(event_name: str, support: Request):
     }
 
 
-@app.get("/data")
-def read_data():
-    return {"name": "YamateTheKudasai", "song": "MyLittlePonysPlayalong"}
+@app.post("/user_commands")
+async def read_command_list(command_req: Request):
+    req = await command_req.json()
+    print(req)
+    command_list = {
+        "discord": "Here's a link to the discord: 🐒",
+        "songs" : "Song list here is: 🐵",
+        "who" : "I'm the sign of: 🍖"
+    }
+    command = command_list.get(req["command"])
+    if command:
+        api_to_socket_message(command)
+
+all_commands = {}
+
+@app.post("/add_command")
+async def add_command(command_req: Request):
+    req = await command_req.json()
+    print(req)
+    command = all_commands.update(req)
+    print(all_commands)
 
 
 @app.post("/sound_effects")
 async def read_data(support: Request):
     req = await support.json()
     print(req)
-    sound_name = req.get("sound_name", "coom")
-    username = req.get("username", "Karen")
+    sound_name = req.get("sound_name")
+    username = req.get("username", "no-username")
     sound_type = req.get("sound_type", "effects")
+    if sound_name is None:
+        return
     files = Path(f'sounds/{sound_type}').glob('*.mp3')
     mp3_file = [file.name for file in files if file.name == f"{sound_name}.mp3"]
     if mp3_file:
