@@ -1,12 +1,15 @@
 import 'dotenv/config';
 import type { RequestHandler } from '@sveltejs/kit';
 import { connect, serverMessagesToChat } from '$lib/client';
+import { eventSubscribe } from '$lib/events';
 
 let username: string = process.env.USER_NAME || '';
 let password: string = process.env.TOKEN || '';
 let channel: string = process.env.CHANNEL || '';
 
 let client = connect(username, password, channel);
+
+eventSubscribe();
 
 serverMessagesToChat({
 	client,

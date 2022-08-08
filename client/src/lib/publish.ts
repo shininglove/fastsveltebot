@@ -17,7 +17,7 @@ export const publishMessage = (message: userState) => {
 	pusher.trigger(chatroom, 'message', message);
 };
 
-export const publishSub = (submessage: supportMap) => {
+export const publishSub = (submessage: string) => {
 	pusher.trigger(chatroom, 'submessage', submessage);
 };
 
