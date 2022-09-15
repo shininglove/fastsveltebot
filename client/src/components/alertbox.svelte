@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { getContext } from 'svelte';
 	import type { subSupportState, userSupport } from '$src/types/twitch';
-	import { removeCurrentSupport } from '$lib/alert';
+	import { removeCurrentSupport } from '$lib/clientside/alert';
 	import { playAudio } from '$src/lib/helpers';
 
 	export let eventData: subSupportState;
@@ -18,7 +18,7 @@
 
 	let currentAlert: subSupportState[] = [];
 
-	const alertAudio = (audioName: string,audioType: string = "effects") => {
+	const alertAudio = (audioName: string, audioType: string = 'effects') => {
 		playAudio(`${host}/audio/${audioType}/${audioName}`, () => {
 			console.log('Finished playing');
 			currentAlert = [];
@@ -46,7 +46,7 @@
 </script>
 
 <div
-	class="fixed inset-y-40 inset-x-1/3 w-1/4 text-{color}-500 text-center"
+	class="fixed inset-y-40 inset-x-1/3 w-1/4 text-{color}-500 text-center row-span-1"
 	transition:fade={{ delay, duration }}
 >
 	<img class="w-fit h-fit" src={imgSrc} alt="broken-img-link" />

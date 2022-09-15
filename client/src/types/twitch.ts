@@ -36,6 +36,19 @@ export interface viewerSupportState {
 	autohost?: boolean;
 }
 
+export interface followSupportState {
+	username: string;
+	followDate: Date;
+}
+
+export interface redeemRewardState {
+	displayName: string;
+	rewardCost: number;
+	rewardId: string;
+	input?: string;
+	title: string;
+}
+
 export const enum UserSupportEvents {
 	sub = 'sub',
 	giftsub = 'giftsub',
@@ -53,7 +66,7 @@ export type subSupportState = subEventState | viewerSupportState | cheerEventSta
 export type supportMap = Map<userSupport, subSupportState>;
 
 export interface SoundRequest {
-	"username"?: string,
-	"sound_name": string,
-	"sound_type": string
+	username?: string;
+	sound_name: string;
+	sound_type: string;
 }

@@ -53,14 +53,16 @@ async def read_command_list(command_req: Request):
     print(req)
     command_list = {
         "discord": "Here's a link to the discord: 🐒",
-        "songs" : "Song list here is: 🐵",
-        "who" : "I'm the sign of: 🍖"
+        "songs": "Song list here is: 🐵",
+        "who": "I'm the sign of: 🍖",
     }
     command = command_list.get(req["command"])
     if command:
         api_to_socket_message(command)
 
+
 all_commands = {}
+
 
 @app.post("/add_command")
 async def add_command(command_req: Request):
@@ -79,13 +81,13 @@ async def read_data(support: Request):
     sound_type = req.get("sound_type", "effects")
     if sound_name is None:
         return
-    files = Path(f'sounds/{sound_type}').glob('*.mp3')
+    files = Path(f"sounds/{sound_type}").glob("*.mp3")
     mp3_file = [file.name for file in files if file.name == f"{sound_name}.mp3"]
     if mp3_file:
         name = mp3_file[0].replace(".mp3", "")
         return req
-    
+
 
 @app.get("/audio/{audio_type}/{filename}")
-def read_data(audio_type: str,filename: str):
+def read_data(audio_type: str, filename: str):
     return FileResponse(f"sounds/{audio_type}/{filename}.mp3")

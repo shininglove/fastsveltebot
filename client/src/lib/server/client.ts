@@ -1,6 +1,6 @@
 import tmi from 'tmi.js';
 import pusherJs from 'pusher-js';
-import { publishMessage } from '$lib/publish';
+import { publishMessage } from '$lib/server/publish';
 import { supportEventHandler } from './services';
 
 console.log('Creating client...');

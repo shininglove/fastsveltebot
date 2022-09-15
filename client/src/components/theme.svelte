@@ -1,11 +1,8 @@
 <script lang="ts">
-	import { playingEffectName, playingEffectValue, playingEffect } from '$lib/theme';
+	import { playingEffectName, playingEffectValue, playingEffect } from '$lib/clientside/theme';
 	import ThemePlayer from '$src/components/themeplayer.svelte';
 </script>
 
 {#if $playingEffect}
-	<ThemePlayer 
-		currentEffectName={$playingEffectName} 
-		currentEffectValue={$playingEffectValue}
-	/>
+	<ThemePlayer currentEffectName={$playingEffectName} currentEffectValue={$playingEffectValue} />
 {/if}

@@ -18,13 +18,13 @@ export const playAudio = (audioUrl: string, endFunc: any, volume: number = 0.5) 
 	sampleAudio.play();
 };
 
-export const safeFetchData = async <T>(dataUrl: string, item: T, fetchFunc: (args:T) => void) => {
+export const safeFetchData = async <T>(dataUrl: string, item: T, fetchFunc: (args: T) => void) => {
 	const checkData = await fetch(dataUrl, {
 		method: 'POST',
 		body: JSON.stringify(item)
 	});
 	const checkResult = await checkData.json();
-	if (checkResult){
+	if (checkResult) {
 		fetchFunc(checkResult);
 	}
-}
+};
