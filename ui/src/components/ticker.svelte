@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { counterName, countState } from '$lib/clientside/stores/counter';
+	import { counterName, countState } from '$lib/client/stores/counter';
 	import { fade } from 'svelte/transition';
 	import { pluarlize } from '$lib/helpers';
 </script>

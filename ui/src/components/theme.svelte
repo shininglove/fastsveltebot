@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { playingEffectName, playingEffectValue, playingEffect } from '$lib/clientside/stores/theme';
+	import { playingEffectName, playingEffectValue, playingEffect } from '$lib/client/stores/theme';
 	import ThemePlayer from '$src/components/themeplayer.svelte';
 </script>
 

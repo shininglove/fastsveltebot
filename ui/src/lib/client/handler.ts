@@ -13,8 +13,8 @@ import {
 	stopCount,
 	updateCounterName,
 	resetCount
-} from '$lib/clientside/stores/counter';
-import { populateMessages } from '$lib/clientside/stores/messages';
+} from '$lib/client/stores/counter';
+import { populateMessages } from '$lib/client/stores/messages';
 import { addSupportEvent } from './stores/alert';
 import { addThemeEffect } from './stores/theme';
 import { safeFetchData } from '$lib/helpers';

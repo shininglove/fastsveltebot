@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentSupportName, currentSupportValue } from '$lib/clientside/stores/alert';
+	import { currentSupportName, currentSupportValue } from '$lib/client/stores/alert';
 	import AlertBox from '$src/components/alertbox.svelte';
 </script>
 
