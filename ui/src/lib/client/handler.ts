@@ -13,10 +13,10 @@ import {
 	stopCount,
 	updateCounterName,
 	resetCount
-} from '$lib/clientside/counter';
-import { populateMessages } from '$lib/clientside/stores';
-import { addSupportEvent } from './alert';
-import { addThemeEffect } from './theme';
+} from '$lib/clientside/stores/counter';
+import { populateMessages } from '$lib/clientside/stores/messages';
+import { addSupportEvent } from './stores/alert';
+import { addThemeEffect } from './stores/theme';
 import { safeFetchData } from '$lib/helpers';
 
 const testSupportHandler = (eventType: userSupport, args: subSupportState) => {

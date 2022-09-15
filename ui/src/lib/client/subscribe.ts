@@ -1,7 +1,7 @@
 import pusherJs from 'pusher-js';
-import { messageHandler } from '$lib/clientside/message';
+import { messageHandler } from '$lib/clientside/handler';
 import type { supportMap, userState, userSupport } from '$src/types/twitch';
-import { addSupportEvent } from '$lib/clientside/alert';
+import { addSupportEvent } from '$lib/clientside/stores/alert';
 
 export interface ChatSubOptions {
 	app_key: string;
