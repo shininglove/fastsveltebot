@@ -5,7 +5,7 @@
 </script>
 
 {#if $counterName}
-	<div class="row-start-1 row-end-3 col-start-3 border-green-400 border-4" transition:fade={{ delay: 250, duration: 500 }}>
+	<div class="row-start-2 row-end-3 col-start-4" transition:fade={{ delay: 250, duration: 500 }}>
 		<p class="text-6xl font-bold text-red-500">
 			{pluarlize($counterName)} : {$countState}
 		</p>

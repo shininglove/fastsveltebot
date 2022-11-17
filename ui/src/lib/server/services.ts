@@ -15,5 +15,6 @@ export const supportEventHandler = (eventType: userSupport, args: subSupportStat
 		default:
 			break;
 	}
-	publishSub(JSON.stringify(Object.fromEntries(eventMap.entries())));
+	const serializedEventMap = Object.fromEntries(eventMap.entries())
+	publishSub(JSON.stringify(serializedEventMap));
 };

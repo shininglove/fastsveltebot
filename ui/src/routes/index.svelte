@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, setContext } from 'svelte';
-	import { chatSubscribe, type ChatSubOptions} from '$lib/client/subscribe';
+	import { chatSubscribe, type ChatSubOptions } from '$lib/client/subscribe';
 	import Message from '$src/components/message.svelte';
 	import Alert from '$src/components/alert.svelte';
 	import Counter from '$src/components/ticker.svelte';
