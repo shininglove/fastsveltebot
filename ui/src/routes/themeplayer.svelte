@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import { playAudio } from '$src/lib/helpers';
+	import { playAudio } from '$lib/helpers';
 	import { removeCurrentEffect } from '$lib/client/stores/theme';
-	import type { SoundRequest } from '$src/types/twitch';
+	import type { SoundRequest } from '$lib/twitch';
 
 	export let currentEffectName: string;
 	export let currentEffectValue: SoundRequest;

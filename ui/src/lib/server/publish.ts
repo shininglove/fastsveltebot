@@ -1,6 +1,6 @@
 import Pusher from 'pusher';
 import 'dotenv/config';
-import type { userState } from '$src/types/twitch';
+import type { userState } from '$src/lib/twitch';
 
 let pusher = new Pusher({
 	appId: process.env.SOKETI_APP_ID || '',

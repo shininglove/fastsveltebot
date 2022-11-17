@@ -3,7 +3,7 @@ import {
 	type subSupportState,
 	type supportMap,
 	type userSupport
-} from '$src/types/twitch';
+} from '$lib/twitch';
 import { publishSub } from './publish';
 
 export const supportEventHandler = (eventType: userSupport, args: subSupportState) => {

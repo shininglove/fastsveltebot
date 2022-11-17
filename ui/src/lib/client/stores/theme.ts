@@ -1,4 +1,4 @@
-import type { SoundRequest } from '$src/types/twitch';
+import type { SoundRequest } from '$src/lib/twitch';
 import { writable, derived } from 'svelte/store';
 
 const defaultMap = new Map([['', {}]]);

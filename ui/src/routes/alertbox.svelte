@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { getContext } from 'svelte';
-	import type { subSupportState, userSupport } from '$src/types/twitch';
+	import type { subSupportState, userSupport } from '$src/lib/twitch';
 	import { removeCurrentSupport } from '$lib/client/stores/alert';
-	import { playAudio } from '$src/lib/helpers';
+	import { playAudio } from '$lib/helpers';
 
 	export let eventData: subSupportState;
 	export let eventName: userSupport;

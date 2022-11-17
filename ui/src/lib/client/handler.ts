@@ -5,7 +5,7 @@ import {
 	type subSupportState,
 	type supportMap,
 	type userSupport
-} from '$src/types/twitch';
+} from '$lib/twitch';
 import { get } from 'svelte/store';
 import {
 	counterName,
