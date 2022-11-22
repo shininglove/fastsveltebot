@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import type { PageServerLoad } from './$types';
 import { connect, serverMessagesToChat } from '$lib/server/client';
-import { eventSubscribe } from '$lib/server/events';
+// import { eventSubscribe } from '$lib/server/events';
 
 let username: string = process.env.USER_NAME || '';
 let password: string = process.env.TOKEN || '';
@@ -9,7 +9,7 @@ let channel: string = process.env.CHANNEL || '';
 
 let client = connect(username, password, channel);
 
-eventSubscribe();
+// eventSubscribe();
 
 let app_key = process.env.SOKETI_KEY || '';
 let app_host = process.env.SOKETI_HOST || '';

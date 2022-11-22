@@ -68,11 +68,12 @@ interface serverOptions {
 export const serverMessagesToChat = (options: serverOptions) => {
 	let { app_host, app_port, app_ssl, app_key, client, channel } = options;
 	let subClient = new pusherJs(app_key, {
-		wsHost: app_host,
-		wsPort: app_port,
-		forceTLS: app_ssl === 'true',
-		disableStats: true,
-		enabledTransports: ['ws', 'wss']
+		// wsHost: app_host,
+		// wsPort: app_port,
+		// forceTLS: app_ssl === 'true',
+		// disableStats: true,
+		// enabledTransports: ['ws', 'wss']
+		cluster: 'us2'
 	});
 	try {
 		let chatChannel = subClient.subscribe('chat-room');

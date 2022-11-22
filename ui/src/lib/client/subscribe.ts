@@ -10,30 +10,34 @@ export interface ChatSubOptions {
 	app_ssl: string;
 }
 
-export const chatSubscribe = (
-	app_info: ChatSubOptions
-) => {
-	const {app_host,app_port,app_ssl,app_key} = app_info;
+export const chatSubscribe = (app_info: ChatSubOptions) => {
+	const { app_host, app_port, app_ssl, app_key } = app_info;
 	let subClient = new pusherJs(app_key, {
-		wsHost: app_host,
-		wsPort: app_port,
-		forceTLS: app_ssl === 'true',
-		disableStats: true,
-		enabledTransports: ['ws', 'wss']
+		// wsHost: app_host,
+		// wsPort: app_port,
+		// wssPort: app_port,
+		// forceTLS: false,
+		// disableStats: true,
+		// enabledTransports: ['ws','wss'],
+		cluster: 'us2'
 	});
 	console.log('Pusher client created...');
+	console.log(subClient)
 	try {
 		let chatChannel = subClient.subscribe('chat-room');
 		chatChannel.bind('message', (data: userState) => {
+			console.log(`Received and retrieved: message`)
 			messageHandler(data.tags, data.message);
 		});
 		chatChannel.bind('submessage', (subdata: supportMap) => {
+			console.log(`Received and retrieved: subs`)
 			const [keys] = Object.keys(subdata);
 			const [value] = Object.values(subdata);
 			const parsedSubData: supportMap = new Map([[keys as userSupport, value]]);
 			addSupportEvent(parsedSubData);
 		});
 	} catch (error) {
+		console.log(`${error}`)
 		subClient.unsubscribe('chat-room');
 	}
 };

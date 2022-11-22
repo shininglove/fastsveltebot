@@ -6,8 +6,9 @@ client = Pusher(
     key=config.SOCK_KEY,
     secret=config.SOCK_SECRET,
     ssl=config.SOCK_SSL == "true",
-    host=config.SOCK_HOST,
-    port=int(config.SOCK_PORT),
+    cluster='us2'
+    # host=config.SOCK_HOST,
+    # port=int(config.SOCK_PORT),
 )
 
 

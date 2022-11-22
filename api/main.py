@@ -73,7 +73,7 @@ async def add_command(command_req: Request):
 
 
 @app.post("/sound_effects")
-async def read_data(support: Request):
+async def read_sound_info(support: Request):
     req = await support.json()
     print(req)
     sound_name = req.get("sound_name")
