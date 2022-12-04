@@ -107,9 +107,9 @@ def find_sound_effect(sound_name):
     return True if sound_effect else False
 
 
-def find_all_sounds():
-    sound_list = SoundEffects.find_all_sounds()
-    return ", ".join([sound.name for sound in sound_list])
+def find_all_sounds(limit=10):
+    sound_list = SoundEffects.find_all_sounds(limit)
+    return [sound.name for sound in sound_list]
 
 
 def play_sound_effect(sound_name):

@@ -18,5 +18,5 @@
 	<Alert />
 	<Counter />
 	<Theme />
-	<Message botName={username} />
+	<Message />
 </div>
