@@ -12,6 +12,7 @@
 	let user: string;
 	let effect: string;
 	let currentAudio: SoundRequest[] = [];
+	let type: string;
 
 	const effectAudio = (audioName: string, audioType: string = 'effects') => {
 		playAudio(`${host}/audio/${audioType}/${audioName}`, () => {
@@ -33,8 +34,9 @@
 			if (result) {
 				user = result.username;
 				effect = result.sound_name;
+				type = result.sound_type;
 				console.log(`Trying to play ${effect}`);
-				effectAudio(effect);
+				effectAudio(effect,type);
 				currentAudio.push(params);
 			}
 		}
@@ -50,7 +52,12 @@
 		>
 			<span class="text-purple-400 font-bold text-xl border-purple-400 p-1">&#9658;</span>
 			<span class="text-blue-400">{user}</span>
-			is playing <span class="font-bold">{effect}</span>
+			{#if type == "theme"}
+				is playing <span class="font-bold">{effect}</span>
+			{:else}
+				has arrived in chat!
+			{/if}
+			
 		</div>
 	</div>
 {/if}

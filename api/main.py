@@ -5,7 +5,8 @@ from fastapi.responses import FileResponse
 import config
 from subscription import api_to_socket_message
 from search import find_tier_image, find_raid_image
-from utils.utilities import find_all_sounds, find_command, find_sound_effect
+from utils.models import Tags
+from utils.utilities import find_all_sounds, find_command, find_sound_effect, save_message
 
 app = FastAPI()
 
@@ -62,15 +63,13 @@ async def read_command_list(command_req: Request):
         api_to_socket_message(command.message)
 
 
-all_commands = {}
-
-
-@app.post("/add_command")
-async def add_command(command_req: Request):
+@app.post("/add_message")
+async def add_message(command_req: Request):
     req = await command_req.json()
-    print(req)
-    command = all_commands.update(req)
-    print(all_commands)
+    print(req["user"]["badge-info"])
+    user_message = save_message(Tags(req["user"]),req["message"])
+    return {"first_message": user_message.first_message()}
+    
 
 
 @app.post("/sound_effects")
@@ -84,6 +83,9 @@ async def read_sound_info(support: Request):
         return
     if sound_type == "effects" and find_sound_effect(sound_name):
         print(f"{username} played: {sound_name}")
+        return req
+    if sound_type == "theme" and find_sound_effect(sound_name,"theme"):
+        print(f"{username} came through today")
         return req
 
 

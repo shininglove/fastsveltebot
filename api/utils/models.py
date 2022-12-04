@@ -1,4 +1,6 @@
 import os
+
+from sqlalchemy.sql.functions import user
 from .youtube import check_duration
 from logger import logger
 import datetime
@@ -94,3 +96,15 @@ class ChatSound:
             logger.debug("Length doesn't make sense")
             return False
         return True
+
+class Tags:
+    def __init__(self, user_info):
+        for key, item in user_info.items():
+            tags_key = self.parse_tag(key)
+            setattr(self, tags_key, item)
+    
+    @staticmethod
+    def parse_tag(item):
+        if "-" in item:
+            item = item.replace("-", "_")
+        return item

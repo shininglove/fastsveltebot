@@ -30,12 +30,11 @@ const testSupportHandler = (eventType: userSupport, args: subSupportState) => {
 };
 
 export const messageHandler = (tags: ChatUserstate, message: string) => {
+	const host = import.meta.env.VITE_API_HOST;
+	const sender = tags.username;
 	if (message.startsWith('!')) {
 		const parsedMessage: string = message.replace('!', '').toLowerCase();
 		const messageSections: string[] = parsedMessage.split(' ');
-		const messageInfo = { tags, message: parsedMessage };
-		populateMessages(messageInfo);
-		const sender = tags.username;
 		const userNames = ['Bob', 'Richard', 'Matt', 'Tom'];
 		const subTiers: SubMethod[] = ['1000', '2000', '3000', 'Prime'];
 		const chosenName = userNames[Math.floor(Math.random() * userNames.length)];
@@ -72,7 +71,7 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 				});
 				break;
 			default:
-				const host = import.meta.env.VITE_API_HOST;
+				
 				const updateTheme = (data: SoundRequest) => {
 					const userMap = new Map();
 					userMap.set(sender, { sound_name: data.sound_name, sound_type: data.sound_type });
@@ -87,4 +86,11 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 				break;
 		}
 	}
+	safeFetchData(`${host}/add_message`, { user: tags, message }, (data: {first_message: boolean}) => {
+		if (data.first_message) {
+			const userMap = new Map();
+			userMap.set(sender, { sound_name: sender, sound_type: "theme" });
+			addThemeEffect(userMap);
+		}
+	});
 };
