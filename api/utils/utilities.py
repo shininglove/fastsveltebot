@@ -102,7 +102,7 @@ def rename_theme_song(username, theme_name, new_name):
     return f"@{username}, {theme_name} changed to {sound_status.name}"
 
 
-def find_sound_effect(sound_name,sound_type="effects"):
+def find_sound_effect(sound_name,sound_type="sound"):
     sound_effect = SoundEffects.find_sound(sound_name,sound_type)
     return True if sound_effect else False
 

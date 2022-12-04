@@ -79,6 +79,7 @@ async def read_sound_info(support: Request):
     sound_name = req.get("sound_name")
     username = req.get("username", None)
     sound_type = req.get("sound_type", "effects")
+    print(find_sound_effect(sound_name))
     if sound_name is None:
         return
     if sound_type == "effects" and find_sound_effect(sound_name):

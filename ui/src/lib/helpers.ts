@@ -24,6 +24,7 @@ export const safeFetchData = async <U>(dataUrl: string, item: U, fetchFunc: (arg
 		body: JSON.stringify(item)
 	});
 	const checkResult = await checkData.json();
+	console.log(checkResult)
 	if (checkResult) {
 		fetchFunc(checkResult);
 	}

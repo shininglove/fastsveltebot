@@ -71,8 +71,9 @@ export const messageHandler = (tags: ChatUserstate, message: string) => {
 				});
 				break;
 			default:
-				
+				console.log("Processing sounds")
 				const updateTheme = (data: SoundRequest) => {
+					console.log("Triggered")
 					const userMap = new Map();
 					userMap.set(sender, { sound_name: data.sound_name, sound_type: data.sound_type });
 					addThemeEffect(userMap);

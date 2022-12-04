@@ -53,9 +53,9 @@
 			<span class="text-purple-400 font-bold text-xl border-purple-400 p-1">&#9658;</span>
 			<span class="text-blue-400">{user}</span>
 			{#if type == "theme"}
-				is playing <span class="font-bold">{effect}</span>
-			{:else}
 				has arrived in chat!
+			{:else}
+				is playing <span class="font-bold">{effect}</span>
 			{/if}
 			
 		</div>
