@@ -12,6 +12,17 @@ export const supportEventHandler = (eventType: userSupport, args: subSupportStat
 		case UserSupportEvents.sub:
 			eventMap.set(UserSupportEvents.sub, args);
 			break;
+		case UserSupportEvents.raid:
+			console.log("Trigger raid event!");
+			eventMap.set(UserSupportEvents.raid, args);
+			break;
+		case UserSupportEvents.cheer:
+			console.log("Trigger cheer event!");
+			eventMap.set(UserSupportEvents.cheer, args);
+			break;
+		case UserSupportEvents.resub:
+			eventMap.set(UserSupportEvents.resub, args);
+			break;
 		default:
 			break;
 	}

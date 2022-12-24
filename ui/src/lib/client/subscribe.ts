@@ -30,9 +30,10 @@ export const chatSubscribe = (app_info: ChatSubOptions) => {
 			messageHandler(data.tags, data.message);
 		});
 		chatChannel.bind('submessage', (subdata: supportMap) => {
-			console.log(`Received and retrieved: subs`)
 			const [keys] = Object.keys(subdata);
 			const [value] = Object.values(subdata);
+			console.log(`Received and retrieved: ${keys}`)
+			console.log(`Information from sub event: ${value}`)
 			const parsedSubData: supportMap = new Map([[keys as userSupport, value]]);
 			addSupportEvent(parsedSubData);
 		});

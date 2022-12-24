@@ -9,3 +9,6 @@ def find_tier_image(tier: str) -> str:
 
 def find_raid_image(raid_count: int) -> str:
     return "https://cdn.britannica.com/30/143530-050-944C363C/Swamp-monkey.jpg"
+
+def find_cheer_image(cheer_message: str) -> str:
+    return "https://i.redd.it/6x9qh7b1st1y.jpg"

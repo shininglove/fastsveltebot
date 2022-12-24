@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 import config
 from subscription import api_to_socket_message
-from search import find_tier_image, find_raid_image
+from search import find_tier_image, find_raid_image, find_cheer_image
 from utils.models import Tags
 from utils.utilities import find_all_sounds, find_command, find_sound_effect, save_message
 
@@ -45,13 +45,22 @@ async def read_support(event_name: str, support: Request):
             "message": f"{req['username']} has subbed w/ {user_tier}",
             "audio_path": "dog",
         }
-    viewers = int(req["viewers"])
-    return {
-        "img": find_raid_image(viewers),
-        "subtext": f"Check them out please!",
-        "message": f"{req['username']} has raided w/ {viewers} viewers",
-        "audio_path": "chc",
-    }
+    if event_name == "raid":        
+        viewers = int(req["viewers"])
+        return {
+            "img": find_raid_image(viewers),
+            "subtext": f"Check them out please!",
+            "message": f"{req['username']} has raided w/ {viewers} viewers",
+            "audio_path": "chc",
+        }
+    if event_name == "cheer":        
+        message = req["message"]
+        return {
+            "img": find_cheer_image(message),
+            "subtext": f"Thanks for the bits!",
+            "message": f"{req['username']} has cheered w/ {message}",
+            "audio_path": "bacon",
+        }
 
 
 @app.post("/user_commands")

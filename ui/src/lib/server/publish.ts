@@ -20,7 +20,7 @@ export const publishMessage = (message: userState) => {
 };
 
 export const publishSub = (submessage: string) => {
-	console.log(`Message has been subbed`)
+	console.log(`Message has been subbed: ${submessage}`)
 	pusher.trigger(chatroom, 'submessage', submessage);
 };
 

@@ -1,8 +1,11 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+	
 	let soundList: string = "";
-	const fetchSoundData = async () => {
-		let host = getContext('host');
+	let host: string = getContext('host');
+
+	const fetchSoundData = async (host:string) => {
+		
 		const userSupportData = await fetch(`${host}/sounds`, {
 			method: 'GET',
 		});
@@ -11,7 +14,11 @@
 			soundList += `!${item} `
 		})
 	};
-	fetchSoundData()
+
+	onMount(() => {
+		fetchSoundData(host);	
+	});
+	
 </script>
 
 <div class="fixed inset-x-0 bottom-0 text-left text-lg pr-5 bg-pink-400 h-16">
